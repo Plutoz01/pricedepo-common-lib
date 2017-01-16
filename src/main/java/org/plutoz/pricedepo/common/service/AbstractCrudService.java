@@ -2,16 +2,17 @@ package org.plutoz.pricedepo.common.service;
 
 import java.io.Serializable;
 
+import org.plutoz.pricedepo.common.domain.Identifiable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
-public abstract class AbstractCrudService<T, I extends Serializable> implements CrudService<T, I> {
+public abstract class AbstractCrudService<ID extends Serializable, T extends Identifiable<ID>> implements CrudService<ID, T> {
 
-	private PagingAndSortingRepository<T, I> repository;
+	private PagingAndSortingRepository<T, ID> repository;
 	
-	public AbstractCrudService(PagingAndSortingRepository<T, I> repository){
+	public AbstractCrudService(PagingAndSortingRepository<T, ID> repository){
 		this.repository = repository;
 	}
 	
@@ -26,7 +27,7 @@ public abstract class AbstractCrudService<T, I extends Serializable> implements 
 	}
 
 	@Override
-	public T findOne(I id) {
+	public T findOne(ID id) {
 		return repository.findOne(id);
 	}
 
@@ -46,12 +47,12 @@ public abstract class AbstractCrudService<T, I extends Serializable> implements 
 	} 
 
 	@Override
-	public Iterable<T> findAll(Iterable<I> ids) {
+	public Iterable<T> findAll(Iterable<ID> ids) {
 		return repository.findAll(ids);
 	}
 
 	@Override
-	public boolean exists(I id) {
+	public boolean exists(ID id) {
 		return repository.exists(id);
 	}
 
@@ -61,7 +62,7 @@ public abstract class AbstractCrudService<T, I extends Serializable> implements 
 	}
 	
 	@Override
-	public void delete(I id){
+	public void delete(ID id){
 		repository.delete(id);
 	}
 

@@ -2,17 +2,18 @@ package org.plutoz.pricedepo.common.service;
 
 import java.io.Serializable;
 
+import org.plutoz.pricedepo.common.domain.Identifiable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
-public interface CrudService <T, I extends Serializable> {
+public interface CrudService <ID extends Serializable, T extends Identifiable<ID>> {
 
 	public T save(T entity);
 	
 	public Iterable<T> save(Iterable<T> entities);
 	
-	public T findOne(I id);
+	public T findOne(ID id);
 	
 	public Iterable<T> findAll();
 	
@@ -20,13 +21,13 @@ public interface CrudService <T, I extends Serializable> {
 	
 	Page<T> findAll(Pageable pageable);
 	
-	public Iterable<T> findAll(Iterable<I> ids);
+	public Iterable<T> findAll(Iterable<ID> ids);
 	
-	public boolean exists(I id);
+	public boolean exists(ID id);
 	
 	public long count();
 	
-	public void delete(I id);
+	public void delete(ID id);
 	
 	public void delete(T entity);
 	
